@@ -59,7 +59,7 @@ test.describe("Content Block Manager", () => {
       return title;
     });
 
-    const whitehallUrl =
+    const { whitehallUrl, whitehallTitle } =
       await test.step("Can embed an object in Whitehall", async () => {
         await context.grantPermissions(["clipboard-read", "clipboard-write"]);
 
@@ -116,10 +116,10 @@ test.describe("Content Block Manager", () => {
         await page.goto(url);
         await expect(page.getByText(rate)).toBeVisible();
 
-        return url;
+        return { whitehallUrl: url, whitehallTitle: documentTitle };
       });
 
-    const mainstreamUrl =
+    const { mainstreamUrl, mainstreamTitle } =
       await test.step("Can embed an object in Mainstream", async () => {
         await context.grantPermissions(["clipboard-read", "clipboard-write"]);
 
@@ -171,8 +171,17 @@ test.describe("Content Block Manager", () => {
         await page.goto(url);
         await expect(page.getByText(rate)).toBeVisible();
 
-        return url;
+        return {mainstreamUrl: url, mainstreamTitle: documentTitle };
       });
+
+    await test.step("Can see pages in list of locations", async () => {
+        await page.goto(contentBlockPath);
+
+        await page.getByRole("link", { name: title }).click();
+
+        await expect(page.locator("#host_editions")).toContainText(whitehallTitle)
+        await expect(page.locator("#host_editions")).toContainText(mainstreamTitle)
+    })
 
     await test.step("Dependent content updates when block content changes", async () => {
       const updatedRate = "£122.99";
