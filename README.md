@@ -43,3 +43,8 @@ Replace placeholders with appropriate values.
 ```bash
 npm run test
 ```
+
+## Running in Github Actions
+
+At the moment, the tests are only run on demand - to run them, go to the [Playwright action](https://github.com/alphagov/content-modelling-e2e/actions/workflows/playwright.yml)
+and click "Run workflow".
