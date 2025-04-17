@@ -40,5 +40,6 @@ Replace placeholders with appropriate values.
 
 ### Run
 
+```bash
 npm run test
-
+```
