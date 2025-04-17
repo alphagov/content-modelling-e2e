@@ -18,6 +18,13 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
+        env:
+          PUBLISHING_DOMAIN: ${{ secrets.PUBLISHING_DOMAIN }}
+          PUBLIC_DOMAIN: ${{ secrets.PUBLIC_DOMAIN }}
+          BASIC_AUTH_USERNAME: ${{ secrets.BASIC_AUTH_USERNAME }}
+          BASIC_AUTH_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}
+          SIGNON_EMAIL: ${{ secrets.SIGNON_EMAIL }}
+          SIGNON_PASSWORD: ${{ secrets.SIGNON_PASSWORD }}
         run: npx playwright test
       - uses: actions/upload-artifact@v4
         if: always()
