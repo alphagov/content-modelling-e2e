@@ -27,3 +27,11 @@ jobs:
   prettier:
     name: Prettier
     uses: ./.github/workflows/prettier.yml
+
+  playwright:
+    name: Playwright Tests
+    uses: ./.github/workflows/playwright.yml
+    secrets: inherit
+    needs:
+      - lint
+      - prettier
