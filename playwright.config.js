@@ -21,6 +21,7 @@ module.exports = defineConfig({
       password: process.env.BASIC_AUTH_PASSWORD,
     },
     trace: "on-first-retry",
+    screenshot: "only-on-failure",
   },
   projects: [
     { name: "setup", testMatch: /.*\.setup\.js/ },
