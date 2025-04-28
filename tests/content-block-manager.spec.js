@@ -171,17 +171,21 @@ test.describe("Content Block Manager", () => {
         await page.goto(url);
         await expect(page.getByText(rate)).toBeVisible();
 
-        return {mainstreamUrl: url, mainstreamTitle: documentTitle };
+        return { mainstreamUrl: url, mainstreamTitle: documentTitle };
       });
 
     await test.step("Can see pages in list of locations", async () => {
-        await page.goto(contentBlockPath);
+      await page.goto(contentBlockPath);
 
-        await page.getByRole("link", { name: title }).click();
+      await page.getByRole("link", { name: title }).click();
 
-        await expect(page.locator("#host_editions")).toContainText(whitehallTitle)
-        await expect(page.locator("#host_editions")).toContainText(mainstreamTitle)
-    })
+      await expect(page.locator("#host_editions")).toContainText(
+        whitehallTitle,
+      );
+      await expect(page.locator("#host_editions")).toContainText(
+        mainstreamTitle,
+      );
+    });
 
     await test.step("Dependent content updates when block content changes", async () => {
       const updatedRate = "£122.99";
