@@ -21,7 +21,9 @@ jobs:
     uses: alphagov/govuk-infrastructure/.github/workflows/dependency-review.yml@main
 
   lint:
+    name: Lint
     uses: ./.github/workflows/lint.yml
 
   prettier:
+    name: Prettier
     uses: ./.github/workflows/prettier.yml

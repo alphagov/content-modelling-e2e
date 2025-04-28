@@ -4,6 +4,7 @@ on: workflow_call
 
 jobs:
   test:
+    name: Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
