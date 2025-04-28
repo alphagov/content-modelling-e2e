@@ -15,7 +15,7 @@ jobs:
           node-version: 18
       - name: Get installed Playwright version
         id: playwright-version
-        run: echo "PLAYWRIGHT_VERSION=$(cat package-lock.json | jq '.packages."node_modules/@playwright/test".version')" >> "$GITHUB_ENV"
+        run: echo "PLAYWRIGHT_VERSION=$(jq '.packages."node_modules/@playwright/test".version' < package-lock.json)" >> "$GITHUB_ENV"
       - name: Cache playwright binaries
         uses: actions/cache@v4
         id: playwright-cache
