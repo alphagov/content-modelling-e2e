@@ -85,7 +85,7 @@ test.describe("Content Block Manager", () => {
         await page.getByLabel("Title (required)").fill(documentTitle);
         await page.getByLabel("Summary (required)").fill("Some summary");
         await page.getByLabel("Body (required)").click();
-        await page.getByLabel("Body (required)").press("Meta+v");
+        await page.getByLabel("Body (required)").press("ControlOrMeta+v");
 
         await page
           .getByRole("button", { name: "Save and go to document" })
@@ -142,7 +142,7 @@ test.describe("Content Block Manager", () => {
         await page.getByRole("button", { name: "Save and go to item" }).click();
 
         await page.getByLabel("Body").click();
-        await page.getByLabel("Body").press("Meta+v");
+        await page.getByLabel("Body").press("ControlOrMeta+v");
 
         await page.getByRole("button", { name: "Save" }).click();
         await page.getByRole("link", { name: "2nd pair of eyes" }).click();
