@@ -5,7 +5,6 @@
 127.0.0.1       bouncer-redirect.dev.gov.uk
 127.0.0.1       collections-publisher.dev.gov.uk
 127.0.0.1       collections.dev.gov.uk
-127.0.0.1       contacts-admin.dev.gov.uk
 127.0.0.1       content-publisher.dev.gov.uk
 127.0.0.1       content-data-api.dev.gov.uk
 127.0.0.1       content-data-admin.dev.gov.uk
