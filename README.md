@@ -33,6 +33,9 @@ BASIC_AUTH_USERNAME=<username>
 BASIC_AUTH_PASSWORD=<password>
 SIGNON_EMAIL=<email>
 SIGNON_PASSWORD=<password>
+NOTIFY_API_KEY=<api_key>
+EMAIL_ALERT_EMAIL=<email_alert_email>
+EMAIL_ALERT_PASSWORD<email_alert_password>
 EOF
 ```
 

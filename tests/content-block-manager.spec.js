@@ -1,12 +1,14 @@
 import { test } from "../lib/cachebust-test";
 import { publishingAppUrl } from "../lib/utils";
+import { getEmailAlerts } from "../lib/notify";
 import {
-    createPensionBlock,
-    embedInWhitehallDoc,
-    embedInMainstreamDoc,
-    updateRateAmount,
-    verifyListedInLocations,
-    verifyUpdateVisible,
+  createPensionBlock,
+  embedInWhitehallDoc,
+  embedInMainstreamDoc,
+  updateRateAmount,
+  verifyListedInLocations,
+  verifyUpdateVisible,
+  signUpForEmails,
 } from "../lib/helpers";
 import { expect } from "@playwright/test";
 
@@ -21,16 +23,20 @@ test.describe("Content Block Manager", () => {
     const mainstreamPath = publishingAppUrl("publisher");
     const contentBlockPath = `${whitehallPath}/content-block-manager/`;
 
-        await test.step("Given I have logged in", async () => {
-            await page.goto(contentBlockPath);
-            await expect(
-                page.getByRole("heading", { name: "Content Block Manager" })
-            ).toBeVisible();
-        });
+    await test.step("Given a user has signed up for emails", async () => {
+      await signUpForEmails(page);
+    });
 
-        await test.step("And I have created an object", async () => {
-            await createPensionBlock(page, contentBlockPath, rate, title);
-        });
+    await test.step("And I have logged in", async () => {
+      await page.goto(contentBlockPath);
+      await expect(
+        page.getByRole("heading", { name: "Content Block Manager" }),
+      ).toBeVisible();
+    });
+
+    await test.step("When I create an object", async () => {
+      await createPensionBlock(page, contentBlockPath, rate, title);
+    });
 
     const { url: whitehallUrl, title: whitehallTitle } =
       await test.step("Then I should be able to embed my object in a Whitehall document", async () => {
@@ -72,10 +78,14 @@ test.describe("Content Block Manager", () => {
       await updateRateAmount(page, contentBlockPath, title, updatedRate);
     });
 
-        await test.step("Then the changed block should be visible on my pages", async () => {
-            await verifyUpdateVisible(page, whitehallUrl, updatedRate);
-            await verifyUpdateVisible(page, mainstreamUrl, updatedRate);
-        });
+    await test.step("Then the changed block should be visible on my pages", async () => {
+      await verifyUpdateVisible(page, whitehallUrl, updatedRate);
+      await verifyUpdateVisible(page, mainstreamUrl, updatedRate);
+    });
+
+    await test.step("And the subscribed user should have received an email alert", async () => {
+      const emails = await getEmailAlerts(whitehallTitle);
+      expect(emails.length).toBeGreaterThan(0);
     });
   });
 });
