@@ -21,7 +21,7 @@ test.describe("Content Block Manager", () => {
 
     const whitehallPath = publishingAppUrl("whitehall-admin");
     const mainstreamPath = publishingAppUrl("publisher");
-    const contentBlockPath = `${whitehallPath}/content-block-manager/`;
+    const contentBlockPath = publishingAppUrl("content-block-manager");
 
     await test.step("Given a user has signed up for emails", async () => {
       await signUpForEmails(page);
