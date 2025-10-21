@@ -21,31 +21,41 @@ npm install
 npx playwright install --with-deps chromium
 ```
 
-### Set environment variables
+### Get and set environment variables
 
-Create a .env file in the root of the project with the following content:
+Ensure you are logged into the integration AWS environment:
 
 ```bash
-cat <<EOF > .env
-PUBLISHING_DOMAIN=staging.publishing.service.gov.uk
-PUBLIC_DOMAIN=www.staging.publishing.service.gov.uk
-BASIC_AUTH_USERNAME=<username>
-BASIC_AUTH_PASSWORD=<password>
-SIGNON_EMAIL=<email>
-SIGNON_PASSWORD=<password>
-NOTIFY_API_KEY=<api_key>
-EMAIL_ALERT_EMAIL=<email_alert_email>
-EMAIL_ALERT_PASSWORD<email_alert_password>
-EOF
+eval $(gds aws govuk-integration-developer -e --art 8h)
+kubectl config use-context govuk-integration
 ```
 
-Replace placeholders with appropriate values.
+Create a .env file in the root of the project from the shared secrets:
+
+```bash
+aws secretsmanager get-secret-value --secret-id govuk/content-block-manager/e2e-secrets \
+  | jq '.SecretString' | jq -r 'fromjson | to_entries[] | "\(.key)=\(.value)"'  > .env
+```
 
 ### Run
 
 ```bash
 npm run test
 ```
+
+Or to run with the Playwright UI:
+
+```bash
+npm run test:ui
+```
+
+### Running in the staging environment
+
+If you want to run the tests in the staging environment, you can change the `PUBLISHING_DOMAIN` and `PUBLIC_DOMAIN`
+environment variables in the `.env` file to `staging.publishing.service.gov.uk` and
+`www.staging.publishing.service.gov.uk` respectively. You will need to be connected to the
+[GDS VPN](https://docs.publishing.service.gov.uk/manual/get-started.html#8-connect-to-the-gds-vpn) for these tests
+to run correctly.
 
 ## Running in Github Actions
 
