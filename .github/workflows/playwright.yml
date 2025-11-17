@@ -25,10 +25,10 @@ jobs:
             ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
       - name: Install dependencies
-        run: npm ci
-      - run: npx playwright install --with-deps
+        run: yarn install --frozen-lockfile
+      - run: yarn playwright install --with-deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-      - run: npx playwright install-deps
+      - run: yarn playwright install-deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
       - name: Run Tests
         env:
@@ -41,7 +41,7 @@ jobs:
           NOTIFY_API_KEY: ${{ secrets.NOTIFY_API_KEY }}
           EMAIL_ALERT_EMAIL: ${{ secrets.EMAIL_ALERT_EMAIL }}
           EMAIL_ALERT_PASSWORD: ${{ secrets.EMAIL_ALERT_PASSWORD }}
-        run: npx playwright test
+        run: yarn playwright test
       - uses: actions/upload-artifact@v5
         if: always()
         with:
