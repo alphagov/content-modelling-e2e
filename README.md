@@ -17,8 +17,8 @@ Clone and navigate to the root folder.
 Install the dependencies:
 
 ```
-npm install
-npx playwright install --with-deps chromium
+yarn install
+yarn playwright install --with-deps chromium
 ```
 
 ### Get and set environment variables
@@ -40,13 +40,13 @@ aws secretsmanager get-secret-value --secret-id govuk/content-block-manager/e2e-
 ### Run
 
 ```bash
-npm run test
+yarn run test
 ```
 
 Or to run with the Playwright UI:
 
 ```bash
-npm run test:ui
+yarn run test:ui
 ```
 
 ### Running in the staging environment
