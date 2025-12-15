@@ -42,7 +42,7 @@ jobs:
           EMAIL_ALERT_EMAIL: ${{ secrets.EMAIL_ALERT_EMAIL }}
           EMAIL_ALERT_PASSWORD: ${{ secrets.EMAIL_ALERT_PASSWORD }}
         run: yarn playwright test
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: playwright-report
