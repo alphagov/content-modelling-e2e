@@ -721,10 +721,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
-notifications-node-client@^8.2.1:
-  version "8.2.1"
-  resolved "https://registry.yarnpkg.com/notifications-node-client/-/notifications-node-client-8.2.1.tgz#6b3e0d855c675bcb706f0f773e25eb738b46688f"
-  integrity sha512-wyZh/NbjN8S2uQX18utYtCyC726BBaGeTc4HeUpdhZv5sYKuaQY94N31v9syh8SzVgehyMzW37y08EePmi+k3Q==
+notifications-node-client@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/notifications-node-client/-/notifications-node-client-8.3.0.tgz#1467aa15d7abc98a673c4d97a6978accbcd4130e"
+  integrity sha512-W0PYbSIohcDVaIcRDpnNpY1cDcEbbJuu61f9wZR11ox5Vxo+ULyG6JYrk53GaJx2gbYNlK9rxRj2V4nm4WAWYw==
   dependencies:
     axios "^1.7.2"
     jsonwebtoken "^9.0.2"
