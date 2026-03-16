@@ -37,6 +37,7 @@
 127.0.0.1       search-admin.dev.gov.uk
 127.0.0.1       search-api.dev.gov.uk
 127.0.0.1       search-api-v2.dev.gov.uk
+127.0.0.1       search-v2-evaluator.dev.gov.uk
 127.0.0.1       search.dev.gov.uk
 127.0.0.1       service-manual-publisher.dev.gov.uk
 127.0.0.1       short-url-manager.dev.gov.uk
