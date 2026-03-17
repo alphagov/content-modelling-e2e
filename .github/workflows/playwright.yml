@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version-file: ".node-version"
       - name: Get installed Playwright version
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(jq -r '.packages."node_modules/@playwright/test".version' < package-lock.json)" >> "$GITHUB_ENV"
