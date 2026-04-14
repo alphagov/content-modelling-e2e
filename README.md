@@ -57,7 +57,13 @@ environment variables in the `.env` file to `staging.publishing.service.gov.uk` 
 [GDS VPN](https://docs.publishing.service.gov.uk/manual/get-started.html#8-connect-to-the-gds-vpn) for these tests
 to run correctly.
 
-## Running in Github Actions
+## Running in GitHub Actions
 
-At the moment, the tests are only run on demand - to run them, go to the [Playwright action](https://github.com/alphagov/content-modelling-e2e/actions/workflows/playwright.yml)
-and click "Run workflow".
+These tests are run on a schedule at 11am every weekday. See the [workflow file](.github/workflows/playwright.yml)
+for more details. Any failures will be reported to the #govuk-content-modelling-automations Slack channel.
+
+To run the tests manually, run the following command locally:
+
+```bash
+gh workflow run playwright.yml
+```
