@@ -33,8 +33,7 @@ kubectl config use-context govuk-integration
 Create a .env file in the root of the project from the shared secrets:
 
 ```bash
-aws secretsmanager get-secret-value --secret-id govuk/content-block-manager/e2e-secrets \
-  | jq '.SecretString' | jq -r 'fromjson | to_entries[] | "\(.key)=\(.value)"'  > .env
+bin/generate-env-file
 ```
 
 ### Run
@@ -67,3 +66,45 @@ To run the tests manually, run the following command locally:
 ```bash
 gh workflow run playwright.yml
 ```
+
+## Troubleshooting
+
+You may occasionally see the following error:
+
+```
+    AxiosError: Request failed with status code 403
+
+       at ../lib/notify.js:5
+
+      3 | export async function getEmailAlerts(title) {
+      4 |   const notifyClient = new NotifyClient(process.env.NOTIFY_API_KEY);
+    > 5 |   const response = await notifyClient.getNotifications(
+        |                    ^
+      6 |     "email",
+      7 |     "delivered",
+      8 |     null,
+        at settle (/home/runner/work/content-modelling-e2e/content-modelling-e2e/node_modules/axios/lib/core/settle.js:19:12)
+        at IncomingMessage.handleStreamEnd (/home/runner/work/content-modelling-e2e/content-modelling-e2e/node_modules/axios/lib/adapters/http.js:793:11)
+        at Axios.request (/home/runner/work/content-modelling-e2e/content-modelling-e2e/node_modules/axios/lib/core/Axios.js:45:41)
+        at getEmailAlerts (/home/runner/work/content-modelling-e2e/content-modelling-e2e/lib/notify.js:5:20)
+        at /home/runner/work/content-modelling-e2e/content-modelling-e2e/tests/content-block-manager.spec.js:87:22
+        at /home/runner/work/content-modelling-e2e/content-modelling-e2e/tests/content-block-manager.spec.js:86:5
+```
+
+This means that the Notify API key that we use to check email alerts has been reset. If this happens, first ensure you
+are logged into the integration AWS environment:
+
+```bash
+eval $(gds aws govuk-integration-developer -e --art 8h)
+kubectl config use-context govuk-integration
+```
+
+Then run:
+
+```bash
+bin/update-notify-secret
+```
+
+This will update the `NOTIFY_API_KEY` environment variable in GitHub. Once this is done, you can re-run the tests.
+
+You may also want to run `bin/generate-env-file` manually to ensure that you can run the tests locally.
