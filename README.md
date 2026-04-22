@@ -33,8 +33,7 @@ kubectl config use-context govuk-integration
 Create a .env file in the root of the project from the shared secrets:
 
 ```bash
-aws secretsmanager get-secret-value --secret-id govuk/content-block-manager/e2e-secrets \
-  | jq '.SecretString' | jq -r 'fromjson | to_entries[] | "\(.key)=\(.value)"'  > .env
+bin/generate-env-file
 ```
 
 ### Run

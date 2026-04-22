@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+printf "Ensure you have credentials in your integration environment before continuing.\n"
+printf "Press enter to continue, or Ctrl-C to abort."
+
+read -r
+
+aws secretsmanager get-secret-value --secret-id govuk/content-block-manager/e2e-secrets \
+  | jq '.SecretString' | jq -r 'fromjson | to_entries[] | "\(.key)=\(.value)"'  > .env
+
+aws secretsmanager get-secret-value --secret-id govuk/email-alert-api/notify \
+  | jq '.SecretString' | jq -r 'fromjson | "NOTIFY_API_KEY=\(.GOVUK_NOTIFY_API_KEY)"' >> .env
