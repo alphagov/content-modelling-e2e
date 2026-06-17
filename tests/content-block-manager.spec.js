@@ -15,8 +15,10 @@ import { expect } from "@playwright/test";
 test.describe("Content Block Manager", () => {
   test("Can create and embed an object", async ({ page, context }) => {
     const timestamp = Date.now();
-    const rate = "£122.33";
-    const updatedRate = "£122.99";
+    const initialRateWithPrefix = "£122.33";
+    const initialRateWithoutPrefix = "122.33";
+    const updatedRateWithPrefix = "£122.99";
+    const updatedRateWithoutPrefix = "122.99";
     const title = `E2E TEST PENSION - ${timestamp}`;
 
     const whitehallPath = publishingAppUrl("whitehall-admin");
@@ -35,7 +37,12 @@ test.describe("Content Block Manager", () => {
     });
 
     await test.step("When I create an object", async () => {
-      await createPensionBlock(page, contentBlockPath, rate, title);
+      await createPensionBlock(
+        page,
+        contentBlockPath,
+        initialRateWithoutPrefix,
+        title,
+      );
     });
 
     const { url: whitehallUrl, title: whitehallTitle } =
@@ -47,7 +54,7 @@ test.describe("Content Block Manager", () => {
           whitehallPath,
           title,
           timestamp,
-          rate,
+          initialRateWithPrefix,
         );
       });
 
@@ -60,7 +67,7 @@ test.describe("Content Block Manager", () => {
           mainstreamPath,
           title,
           timestamp,
-          rate,
+          initialRateWithPrefix,
         );
       });
 
@@ -75,12 +82,17 @@ test.describe("Content Block Manager", () => {
     });
 
     await test.step("When I make a change to my block", async () => {
-      await updateRateAmount(page, contentBlockPath, title, updatedRate);
+      await updateRateAmount(
+        page,
+        contentBlockPath,
+        title,
+        updatedRateWithoutPrefix,
+      );
     });
 
     await test.step("Then the changed block should be visible on my pages", async () => {
-      await verifyUpdateVisible(page, whitehallUrl, updatedRate);
-      await verifyUpdateVisible(page, mainstreamUrl, updatedRate);
+      await verifyUpdateVisible(page, whitehallUrl, updatedRateWithPrefix);
+      await verifyUpdateVisible(page, mainstreamUrl, updatedRateWithPrefix);
     });
 
     await test.step("And the subscribed user should have received an email alert", async () => {
