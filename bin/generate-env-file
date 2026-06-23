@@ -10,3 +10,6 @@ aws secretsmanager get-secret-value --secret-id govuk/content-block-manager/e2e-
 
 aws secretsmanager get-secret-value --secret-id govuk/email-alert-api/notify \
   | jq '.SecretString' | jq -r 'fromjson | "NOTIFY_API_KEY=\(.GOVUK_NOTIFY_API_KEY)"' >> .env
+
+# Instructs Node to use system certificate authority to ensure requests succeed when running ZScaler.
+echo "NODE_USE_SYSTEM_CA=1" >> .env
