@@ -106,5 +106,6 @@ bin/update-notify-secret
 ```
 
 This will update the `NOTIFY_API_KEY` environment variable in GitHub. Once this is done, you can re-run the tests.
+Note: this requires the GitHub CLI (`gh`) to be installed to perform the update in GitHub.
 
 You may also want to run `bin/generate-env-file` manually to ensure that you can run the tests locally.
