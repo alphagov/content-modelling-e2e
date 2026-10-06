@@ -15,7 +15,7 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.3",
+    "@types/node": "^26.6.4",
     "eslint": "^10.11.0",
     "globals": "^17.13.0",
     "notifications-node-client": "^8.5.0",
